@@ -1,0 +1,18 @@
+﻿<Application x:Class="BreaksForEyes.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BreaksForEyes"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <Style x:Key="TextInputStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="ChoiceInputStyle" TargetType="ComboBox">
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </Application.Resources>
+</Application>

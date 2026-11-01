@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <!-- 关闭 SDK 的隐式 using：UseWindowsForms 会全局引入 System.Windows.Forms /
+         System.Drawing，与 WPF 的 Application/TextBox/Button/Image 等类型冲突。 -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>BreaksForEyes</RootNamespace>
+    <AssemblyName>BreaksForEyes</AssemblyName>
+    <Version>0.1.0</Version>
+    <Product>Breaks for Eyes</Product>
+    <Company>Breaks for Eyes</Company>
+    <NeutralLanguage>zh-CN</NeutralLanguage>
+    <!-- 高 DPI 由 app.manifest 的 PerMonitorV2 声明（WPF 遮罩定位依赖物理像素）。
+         WinForms 分析器建议改用 ApplicationHighDpiMode，但这里 WPF 是主 UI。 -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+    <!-- 发布配置（DESIGN.md §5 要求可自包含部署）：
+         win-x64 自包含单文件，用户无需安装 .NET 运行时。 -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- Release 发布时把 PDB 嵌入 exe，确保 publish 目录只有一个可运行文件。 -->
+    <DebugType Condition="'$(Configuration)' == 'Release'">embedded</DebugType>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+# 构建产物
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+publish/
+*.nupkg
+*.snupkg
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code / 其他编辑器
+.idea/
+.vscode/
+*.swp
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store
