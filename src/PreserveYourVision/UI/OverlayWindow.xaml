@@ -1,0 +1,193 @@
+<Window x:Class="PreserveYourVision.UI.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Preserve Your Vision"
+        WindowStyle="None"
+        WindowStartupLocation="Manual"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        ShowActivated="True"
+        Topmost="True"
+        AllowsTransparency="False"
+        Background="#FF05080C"
+        Focusable="True"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        FontFamily="Microsoft YaHei UI, Segoe UI"
+        PreviewKeyDown="OverlayWindow_PreviewKeyDown">
+    <Window.Resources>
+        <Style x:Key="OverlayPrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#FF04201C" />
+            <Setter Property="Background" Value="#FF5FD3C4" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="30,12" />
+            <Setter Property="Margin" Value="8,0" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7BE4D6" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF3DB9AA" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.35" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="OverlaySecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#FFE6F4F1" />
+            <Setter Property="Background" Value="#26FFFFFF" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="24,12" />
+            <Setter Property="Margin" Value="8,0" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="#33FFFFFF"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3DFFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1AFFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.35" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="Root">
+        <Grid.Background>
+            <RadialGradientBrush Center="0.5,0.34"
+                                 GradientOrigin="0.5,0.34"
+                                 RadiusX="0.85"
+                                 RadiusY="0.85">
+                <GradientStop Color="#FF1A4050" Offset="0" />
+                <GradientStop Color="#FF0B1A23" Offset="0.62" />
+                <GradientStop Color="#FF060C11" Offset="1" />
+            </RadialGradientBrush>
+        </Grid.Background>
+
+        <!-- 图片层：FR-15，仅此层应用透明度 -->
+        <Canvas x:Name="ImageCanvas" ClipToBounds="True" Visibility="Collapsed" />
+
+        <!-- 半透明遮罩层：保证文字对比度 -->
+        <Rectangle x:Name="Scrim" Fill="#8C04090D" Opacity="0" />
+
+        <!-- 文案与按钮层：保持完全不透明 -->
+        <Grid Margin="48">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        MaxWidth="960">
+                <TextBlock Text="BREAKS FOR EYES"
+                           HorizontalAlignment="Center"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="#995FD3C4"
+                           Margin="0,0,0,20" />
+
+                <TextBlock x:Name="TitleText"
+                           HorizontalAlignment="Center"
+                           FontSize="44"
+                           FontWeight="SemiBold"
+                           Foreground="White"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Text="休息一下" />
+
+                <TextBlock x:Name="MessageText"
+                           HorizontalAlignment="Center"
+                           MaxWidth="800"
+                           Margin="0,16,0,0"
+                           FontSize="20"
+                           LineHeight="31"
+                           Foreground="#D9FFFFFF"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+
+                <TextBlock x:Name="CountdownText"
+                           HorizontalAlignment="Center"
+                           Margin="0,26,0,12"
+                           FontSize="66"
+                           FontWeight="Light"
+                           Foreground="#FF5FD3C4"
+                           Text="0:20" />
+
+                <ProgressBar x:Name="BreakProgress"
+                             Width="440"
+                             Height="6"
+                             Minimum="0"
+                             Maximum="20"
+                             Background="#26FFFFFF"
+                             Foreground="#FF5FD3C4"
+                             BorderThickness="0">
+                    <ProgressBar.Template>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <Grid>
+                                <Border x:Name="PART_Track"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="3" />
+                                <Border x:Name="PART_Indicator"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="3"
+                                        HorizontalAlignment="Left" />
+                            </Grid>
+                        </ControlTemplate>
+                    </ProgressBar.Template>
+                </ProgressBar>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,34,0,0">
+                    <Button x:Name="SkipButton"
+                            Content="跳过休息"
+                            Style="{StaticResource OverlayPrimaryButtonStyle}"
+                            Click="SkipButton_Click" />
+                    <Button x:Name="SnoozeButton"
+                            Content="推迟 5 分钟"
+                            Style="{StaticResource OverlaySecondaryButtonStyle}"
+                            Click="SnoozeButton_Click" />
+                </StackPanel>
+
+                <TextBlock x:Name="HintText"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,0"
+                           FontSize="13"
+                           Foreground="#80FFFFFF"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Text="Esc 跳过 · Tab 切换按钮 · Enter 确认" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

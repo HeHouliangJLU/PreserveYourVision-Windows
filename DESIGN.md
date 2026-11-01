@@ -1,4 +1,4 @@
-# Breaks for Eyes — Windows 版软件设计文档
+# Preserve Your Vision — Windows 版软件设计文档
 
 > 版本：v0.2（草案）
 > 日期：2026-11-01
@@ -128,7 +128,7 @@
 | 前景窗口/全屏检测 | Win32 `GetForegroundWindow` + `GetWindowRect` |
 | 开机自启 | 注册表 `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` |
 | 单实例 | 命名 `Mutex` |
-| 配置/统计持久化 | `System.Text.Json` 写入 `%APPDATA%\BreaksForEyes\` |
+| 配置/统计持久化 | `System.Text.Json` 写入 `%APPDATA%\PreserveYourVision\` |
 | 本地化 | .resx 资源文件 |
 
 ---
@@ -265,12 +265,12 @@ static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
 #### 8.2.4 开机自启
 
-- 写入注册表：`HKCU\Software\Microsoft\Windows\CurrentVersion\Run`，键值 `BreaksForEyes` = 可执行文件路径。
+- 写入注册表：`HKCU\Software\Microsoft\Windows\CurrentVersion\Run`，键值 `PreserveYourVision` = 可执行文件路径。
 - 设置页提供开关；关闭时删除键值。
 
 #### 8.2.5 单实例
 
-- 启动时获取命名 `Mutex`（如 `Global\BreaksForEyes_<user>`），失败则唤起已有实例（可发窗口消息或命名管道通知）并退出。
+- 启动时获取命名 `Mutex`（如 `Global\PreserveYourVision_<user>`），失败则唤起已有实例（可发窗口消息或命名管道通知）并退出。
 
 #### 8.2.6 Toast 通知
 
@@ -283,7 +283,7 @@ static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
 ### 8.3 配置数据设计
 
-存储文件：`%APPDATA%\BreaksForEyes\settings.json`
+存储文件：`%APPDATA%\PreserveYourVision\settings.json`
 
 ```json
 {
@@ -320,7 +320,7 @@ static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 }
 ```
 
-统计文件：`%APPDATA%\BreaksForEyes\stats.json`
+统计文件：`%APPDATA%\PreserveYourVision\stats.json`
 
 ```json
 {

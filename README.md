@@ -1,4 +1,6 @@
-# Breaks for Eyes（Windows 版）
+# Preserve Your Vision（Windows 版）
+
+> *Rest your eyes, live longer.*
 
 基于 **20-20-20 法则**的护眼休息提醒工具：每工作一段时间，提醒你看向远处、起身活动，帮助缓解视疲劳、干眼与头痛。常驻系统托盘，安静、低占用、本地运行。
 
@@ -44,31 +46,31 @@
 
 ```bash
 # 源码运行
-dotnet run --project src/BreaksForEyes
+dotnet run --project src/PreserveYourVision
 
 # 构建
-dotnet build src/BreaksForEyes -c Release
+dotnet build src/PreserveYourVision -c Release
 
 # 发布为单文件 exe（输出到 bin/Release/net10.0-windows/win-x64/publish/）
-dotnet publish src/BreaksForEyes -c Release
+dotnet publish src/PreserveYourVision -c Release
 ```
 
-发布产物为单个 `BreaksForEyes.exe`（win-x64 自包含，约 170 MB）。
+发布产物为单个 `PreserveYourVision.exe`（win-x64 自包含，约 170 MB）。
 
 ## 使用说明
 
 - **托盘图标**：悬浮显示倒计时，左键打开菜单。
 - **托盘菜单**：暂停休息（30 分钟 / 1 小时 / 2 小时 / 4 小时 / 当天）、立即休息、恢复计时、设置、关于、退出。
 - **设置页**：休息节奏、提醒方式、遮罩外观、跳过策略、自动暂停、通用等分组。
-- **数据目录**：`%APPDATA%\BreaksForEyes\settings.json`（配置，首次运行生成）、`stats.json`（统计）。
+- **数据目录**：`%APPDATA%\PreserveYourVision\settings.json`（配置，首次运行生成）、`stats.json`（统计）。
 
 ## 项目结构
 
 ```
 .
 ├─ DESIGN.md                      # 软件设计文档
-└─ src/BreaksForEyes/
-   ├─ BreaksForEyes.csproj        # net10.0-windows, WPF + WinForms, 零第三方依赖
+└─ src/PreserveYourVision/
+   ├─ PreserveYourVision.csproj        # net10.0-windows, WPF + WinForms, 零第三方依赖
    ├─ app.manifest                # PerMonitorV2 高 DPI
    ├─ App.xaml / App.xaml.cs      # 应用入口、单实例、服务接线、1s 计时
    ├─ Models/                     # Settings / Stats / 调度模型
@@ -81,7 +83,7 @@ dotnet publish src/BreaksForEyes -c Release
 
 - C# / .NET 10（WPF）
 - **零第三方 NuGet 依赖**：托盘与通知使用 `System.Windows.Forms.NotifyIcon` 与轻量 WPF 窗口；空闲检测用 Win32 `GetLastInputInfo`
-- 数据仅本地存储（`%APPDATA%\BreaksForEyes\`）
+- 数据仅本地存储（`%APPDATA%\PreserveYourVision\`）
 
 ## 已知限制 / 路线图
 
