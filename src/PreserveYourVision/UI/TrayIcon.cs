@@ -8,7 +8,8 @@ namespace PreserveYourVision.UI;
 
 /// <summary>
 /// 托盘常驻图标与右键菜单（FR-4）。ToolTipText 实时显示倒计时；
-/// 左键点击打开菜单，右键由 NotifyIcon 默认处理。
+/// 菜单仅由右键唤起（交给 NotifyIcon 的默认处理，才能获得系统级的
+/// "点击别处自动关闭" 行为）。左键不响应。
 /// 使用 WinForms NotifyIcon，零额外 NuGet 依赖。
 /// </summary>
 public sealed class TrayIcon : IDisposable
@@ -85,14 +86,6 @@ public sealed class TrayIcon : IDisposable
             Text = "Preserve Your Vision",
             Visible = true,
             ContextMenuStrip = _menu
-        };
-
-        _notifyIcon.MouseClick += (_, args) =>
-        {
-            if (args.Button == MouseButtons.Left)
-            {
-                _menu.Show(Cursor.Position);
-            }
         };
     }
 
