@@ -12,7 +12,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>PreserveYourVision</RootNamespace>
     <AssemblyName>PreserveYourVision</AssemblyName>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Product>Preserve Your Vision</Product>
     <Company>Preserve Your Vision</Company>
     <NeutralLanguage>zh-CN</NeutralLanguage>
